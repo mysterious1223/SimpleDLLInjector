@@ -1,3 +1,12 @@
+
+/*
+
+	Author: Mysterious
+	Title: Simple DLL injector
+	
+	Injects Specified DLL to target program, with easy to understand display. Specify BUILD for x86 or x64 processors
+
+*/
 #pragma comment(lib, "Wtsapi32.lib")
 #include <iostream>
 #include <Windows.h>
@@ -16,7 +25,7 @@ LPVOID func_addr = NULL;
 
 //Specify the path to DDL
 
-char* PathToDLL = "C:/Users/ksingh/Documents/visual studio 2017/Projects/DLLINject/Debug/DLL.dll";
+char* PathToDLL = "<DLL PATH>";
 LPVOID addr_memory_region = NULL;
 HANDLE RemoteThread = NULL;
 
@@ -37,36 +46,16 @@ int main()
 
 	for (int i = 0; i < count_p; i++)
 	{
-		/*
-		HANDLE temp_proc = getPRocessAtPID(process_p[i].ProcessId);
-		PBOOL is64 = false;
-		*/
+		
 		std::cout << process_p[i].ProcessId << " | ";
 		std::cout << process_p[i].SessionId << " | ";
 		std::cout << process_p[i].pUserSid << " | ";
 
 		std::cout << process_p[i].PagefileUsage << " | ";
-		/*
-		if (!IsWow64Process(temp_proc, is64))
-		{
-
-		}
-		else
-		{
-			if (is64)
-			{
-				std::cout << " CPU is 64 | ";
-			}
-			else
-			{
-				std::cout << " CPU is x86 | ";
-			}
-
-		}
-		*/
+		
 		std::cout << process_p[i].pProcessName << std::endl;
 
-		//CloseHandle(temp_proc);
+		
 
 	}
 
@@ -142,7 +131,7 @@ HANDLE getPRocessAtPID(DWORD& PID)
 	return OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID);
 
 }
-
+// OPTIONAL give target process debug priv
 BOOL Inject_SetDebugPrivilege(HANDLE process)
 {
 	BOOL bRet = FALSE;
